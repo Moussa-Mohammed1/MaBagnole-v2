@@ -78,7 +78,7 @@ class Article
         $pdo = Database::getInstance()->getConnection();
         $sql = 'UPDATE article SET status = ? WHERE id_article = ?';
         $st = $pdo->prepare($sql);
-        if ($st->execute([$id_article])) {
+        if ($st->execute(['APPROVED', $id_article])) {
             return true;
         } else {
             return false;
