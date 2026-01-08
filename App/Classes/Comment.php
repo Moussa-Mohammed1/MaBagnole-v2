@@ -58,7 +58,7 @@ class Comment
     public static function deleteComment($id_comment): bool
     {
         $pdo = Database::getInstance()->getConnection();
-        $sql = 'DELETE FROM comment WHERE id_comment = ?';
+        $sql = 'UPDATE  comment SET deleted_at = NOW() WHERE id_comment = ?';
         $st = $pdo->prepare($sql);
         if ($st->execute([$id_comment])) {
             return true;
@@ -77,5 +77,15 @@ class Comment
         } else {
             return null;
         }
+    }
+
+    public static function getAllComments() : ?array {
+        $pdo = Database::getInstance()->getConnection();
+        $sql = 'SELECT c.*, u.nom, u.email, a.titre AS article
+                FROM comment c
+                LEFT JOIN utilisateur u ON c.id_client = u.id_user
+                LEFT JOIN article a ON c.id_article = a.id_article';
+        $st = $pdo->prepare($sql);
+        return $st->execute() ? $st->fetchAll(PDO::FETCH_OBJ) : null;
     }
 }
