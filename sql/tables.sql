@@ -58,7 +58,7 @@ CREATE TABLE avis(
 CREATE TABLE theme(
     id_theme INT PRIMARY KEY AUTO_INCREMENT,
     titre VARCHAR(100),
-    image VARCHAR(200),
+    image VARCHAR(200)
 );
 
 CREATE TABLE article(
@@ -71,7 +71,7 @@ CREATE TABLE article(
     id_theme INT,
     id_client INT,
     FOREIGN KEY (id_theme) REFERENCES theme(id_theme),
-    FOREIGN KEY (id_client) REFERENCES utilisateur(id_client)
+    FOREIGN KEY (id_client) REFERENCES utilisateur(id_user)
 );
 
 CREATE TABLE comment(
@@ -79,6 +79,8 @@ CREATE TABLE comment(
     texte TEXT,
     id_client INT,
     id_article INT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT NULL,
     FOREIGN KEY (id_client) REFERENCES utilisateur(id_user),
     FOREIGN KEY (id_article) REFERENCES article(id_article)
 
@@ -86,7 +88,7 @@ CREATE TABLE comment(
 
 CREATE TABLE tag(
     id_tag INT PRIMARY KEY AUTO_INCREMENT,
-    titre VARCHAR(80),
+    titre VARCHAR(80)
 
 );
 
