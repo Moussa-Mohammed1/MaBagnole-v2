@@ -48,4 +48,16 @@ class Tag
         $st = $pdo->prepare($sql);
         return $st->execute([$id_tag]) ? true : false;
     }
+
+    public static function getAllTags(): ?array{
+        $pdo = Database::getInstance()->getConnection();
+        $sql = 'SELECT t.id_tag, t.titre, COUNT(art.id_tag) AS posts
+                FROM tag t
+                LEFT JOIN article_tag art
+                ON t.id_tag = art.id_tag
+                GROUP BY t.id_tag, t.titre';
+        $st = $pdo->prepare($sql);
+        return $st->execute() ? $st->fetchAll(PDO::FETCH_OBJ) : null;
+    }
+
 }
