@@ -31,7 +31,7 @@ class Article
         return $this->$name;
     }
     public function __set($name, $value)
-    {
+    { 
         $this->$name = $value;
     }
 
@@ -61,7 +61,7 @@ class Article
         }
     }
 
-    public static function deleteArticle(int $id_article): bool
+    public static function deleteArticle(int $id_article): bool 
     {
         $pdo = Database::getInstance()->getConnection();
         $sql = 'DELETE FROM article WHERE id_article = ?';
@@ -114,5 +114,15 @@ class Article
         } else {
             return null;
         }
+    }
+
+    public static function getAllArticles() : ?array {
+        $pdo = Database::getInstance()->getConnection();
+        $sql = 'SELECT a.*, t.titre AS theme, u.nom AS author
+                FROM article a
+                LEFT JOIN theme t ON a.id_theme = t.id_theme
+                LEFT JOIN utilisateur u ON a.id_client = u.id_user';
+        $st = $pdo->prepare($sql);
+        return $st->execute() ? $st->fetchAll(PDO::FETCH_OBJ) : null;
     }
 }
