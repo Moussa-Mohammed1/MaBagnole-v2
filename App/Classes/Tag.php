@@ -13,7 +13,7 @@ class Tag
 
     public function __construct($titre)
     {
-        $this->titre;
+        $this->titre = $titre;
     }
     public function __get($name)
     {
