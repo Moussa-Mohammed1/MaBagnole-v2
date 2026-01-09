@@ -1,3 +1,7 @@
+<?php
+session_start();
+$logged = $_SESSION['logged'];
+?>
 <!DOCTYPE html>
 
 <html class="light" lang="en">
@@ -37,35 +41,69 @@
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display min-h-screen flex flex-col">
-    <!-- Top Navigation -->
-    <header class="sticky top-0 z-50 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-        <div class="px-4 md:px-10 py-3 flex items-center justify-between mx-auto max-w-[1440px]">
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="px-4 md:px-10 py-3 flex items-center justify-between whitespace-nowrap">
             <div class="flex items-center gap-8">
-                <a class="flex items-center gap-3 text-slate-900 dark:text-white" href="../cars.php">
-                    <div class="size-8 text-primary">
-                        <svg class="h-full w-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-xl font-bold tracking-tight">MaBagnole</h2>
+                <a class="flex items-center gap-3 group" href="../cars.php">
+                    <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">MaBagnole</h2>
                 </a>
                 <nav class="hidden md:flex items-center gap-6">
-                    <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="../cars.php">Rentals</a>
-                    <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="ArticlesList.php">Blog</a>
-                    <a class="text-primary text-sm font-medium hover:text-primary transition-colors" href="favoris.php">My Favorites</a>
-                    <a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="../dashboard.php">Profile</a>
+                    <a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="../cars.php">Fleet</a>
+                    <a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="../dashboard.php">My Bookings</a>
+                    <!-- Community Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors">
+                            Community
+                            <span class="material-symbols-outlined text-[18px] group-hover:rotate-180 transition-transform duration-200">expand_more</span>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute left-0 mt-1 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+                            <a href="theme.php" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-colors">
+                                <span class="material-symbols-outlined text-[18px] inline mr-2 align-middle">palette</span>
+                                Themes
+                            </a>
+                            <a href="favoris.php" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-colors">
+                                <span class="material-symbols-outlined text-[18px] inline mr-2 align-middle">favorite</span>
+                                Favorites
+                            </a>
+                            <hr class="border-slate-200 dark:border-slate-700 my-1">
+                            <a href="ArticlesList.php#comments" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-colors">
+                                <span class="material-symbols-outlined text-[18px] inline mr-2 align-middle">chat_bubble</span>
+                                Comments
+                            </a>
+                        </div>
+                    </div>
                 </nav>
             </div>
             <div class="flex items-center gap-4">
-                <div class="hidden md:block relative w-64">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
-                        <span class="material-symbols-outlined text-xl">search</span>
+
+                <div class="flex items-center gap-3">
+                    <div class="hidden sm:flex flex-col items-end">
+                        <span class="text-sm font-bold text-slate-900 dark:text-white"><?= $logged->nom ?></span>
+                        <span class="text-xs text-slate-500 dark:text-slate-400"><?= $logged->email ?></span>
                     </div>
-                    <input class="block w-full p-2.5 pl-10 text-sm text-slate-900 border border-slate-200 rounded-lg bg-slate-50 focus:ring-primary focus:border-primary dark:bg-slate-800 dark:border-slate-700 dark:placeholder-slate-400 dark:text-white" placeholder="Search articles..." type="text" />
+                    <div class="size-10 rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white font-bold">
+                        <?= $logged->nom[0] ?>
+                    </div>
                 </div>
-                <button class="bg-center bg-no-repeat bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" data-alt="User profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7yrZqmGYD2pNaC3PgsIlATPX-xilO8UAbkqQnNlpX4HzwYjDWLZ-P3HQdowJIzeDoo2JrhgGHUDS6ypJyy6yL7jE9dVaPOV1lIaIiPpHBKKjbNwsJm2g6nljmhom4fxfI1dw3Olsu-FoYs_XKUH0hbC387yyHNm42wg7tzYwJXIGgezI5ceiUVqCPYvqwWWLp3-KoTM75ScGC4FIftnFgS-5boKgRPT11mqPAgqj1GRNzcVVH1X5zYfcm_IYKaNYSzlRHiZaOpxM");'></button>
+                <a href="../../auth/login.php" class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">logout</span>
+                    <span class="hidden sm:inline text-sm font-medium">Logout</span>
+                </a>
             </div>
         </div>
+    </header>
+    <div class="flex items-center gap-4">
+        <div class="hidden md:block relative w-64">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                <span class="material-symbols-outlined text-xl">search</span>
+            </div>
+            <input class="block w-full p-2.5 pl-10 text-sm text-slate-900 border border-slate-200 rounded-lg bg-slate-50 focus:ring-primary focus:border-primary dark:bg-slate-800 dark:border-slate-700 dark:placeholder-slate-400 dark:text-white" placeholder="Search articles..." type="text" />
+        </div>
+        <button class="bg-center bg-no-repeat bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" data-alt="User profile picture placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD7yrZqmGYD2pNaC3PgsIlATPX-xilO8UAbkqQnNlpX4HzwYjDWLZ-P3HQdowJIzeDoo2JrhgGHUDS6ypJyy6yL7jE9dVaPOV1lIaIiPpHBKKjbNwsJm2g6nljmhom4fxfI1dw3Olsu-FoYs_XKUH0hbC387yyHNm42wg7tzYwJXIGgezI5ceiUVqCPYvqwWWLp3-KoTM75ScGC4FIftnFgS-5boKgRPT11mqPAgqj1GRNzcVVH1X5zYfcm_IYKaNYSzlRHiZaOpxM");'></button>
+    </div>
+    </div>
     </header>
     <!-- Main Content -->
     <main class="flex-grow w-full max-w-[1120px] mx-auto px-4 md:px-10 py-8">
