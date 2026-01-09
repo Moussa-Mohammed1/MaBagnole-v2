@@ -118,6 +118,30 @@ $cars = Vehicule::getAllCars();
                 <nav class="hidden md:flex items-center gap-6">
                     <a class="text-primary text-sm font-bold" href="cars.php">Fleet</a>
                     <a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="dashboard.php">My Bookings</a>
+                    <!-- Community Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors">
+                            Community
+                            <span class="material-symbols-outlined text-[18px] group-hover:rotate-180 transition-transform duration-200">expand_more</span>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute left-0 mt-1 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+                            
+                            <a href="blog/theme.php" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-colors">
+                                <span class="material-symbols-outlined text-[18px] inline mr-2 align-middle">palette</span>
+                                Themes
+                            </a>
+                            <a href="blog/favoris.php" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-colors">
+                                <span class="material-symbols-outlined text-[18px] inline mr-2 align-middle">favorite</span>
+                                Favorites
+                            </a>
+                            <hr class="border-slate-200 dark:border-slate-700 my-1">
+                            <a href="blog/ArticlesList.php#comments" class="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:bg-primary/20 transition-colors">
+                                <span class="material-symbols-outlined text-[18px] inline mr-2 align-middle">chat_bubble</span>
+                                Comments
+                            </a>
+                        </div>
+                    </div>
                 </nav>
             </div>
             <div class="flex items-center gap-4">
