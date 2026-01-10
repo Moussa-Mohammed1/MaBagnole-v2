@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Classes\Category;
 
-if (!isset($_SESSION['user']) || $_SESSION['user']->role !== 'Admin') {
+if (!isset($_SESSION['logged']) || $_SESSION['logged']->role !== 'admin') {
     header('Location: ../Views/auth/login.php');
     exit();
 }
