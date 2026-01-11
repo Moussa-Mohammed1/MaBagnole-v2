@@ -13,11 +13,16 @@ class Favoris
 {
     public static function addFavoris(int $id_article, int $id_user)
     {
+        
+        if (self::isFavorite($id_article, $id_user)) {
+            return; 
+        }
+        
         $pdo = Database::getInstance()->getConnection();
         $sql = 'INSERT INTO favoris(id_article, id_client)
                 VALUES (?,?)';
         $st = $pdo->prepare($sql);
-        $st->execute([$id_user, $id_article]);
+        $st->execute([$id_article, $id_user]);
     }
 
     public static function deleteFavoris(int $id_article, int $id_user)
@@ -38,5 +43,15 @@ class Favoris
                 ORDER BY a.created_at DESC';
         $st = $pdo->prepare($sql);
         return $st->execute([$id_user]) ? $st->fetchAll(PDO::FETCH_OBJ) : null;
+    }
+
+    public static function isFavorite(int $id_article, int $id_user): bool
+    {
+        $pdo = Database::getInstance()->getConnection();
+        $sql = 'SELECT COUNT(*) as count FROM favoris WHERE id_article = ? AND id_client = ?';
+        $st = $pdo->prepare($sql);
+        $st->execute([$id_article, $id_user]);
+        $result = $st->fetch(PDO::FETCH_OBJ);
+        return $result && $result->count > 0;
     }
 }
