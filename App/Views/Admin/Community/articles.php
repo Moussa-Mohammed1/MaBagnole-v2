@@ -138,51 +138,16 @@ $articles = Article::getAllArticles();
                         <h1 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-tight">Article Management</h1>
                         <p class="text-slate-500 dark:text-slate-400 text-base font-normal">Manage, review, and publish blog content for MaBagnole.</p>
                     </div>
-                    <button class="flex items-center gap-2 bg-primary hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg font-bold shadow-sm shadow-blue-500/20 transition-all active:scale-95">
-                        <span class="material-symbols-outlined text-xl">add</span>
-                        Create New Article
-                    </button>
+                    
                 </div>
-                <!-- Filters & Search Toolbar -->
-                <div class="bg-surface-light dark:bg-surface-dark p-4 rounded-xl border border-border-light dark:border-border-dark flex flex-col gap-4">
-                    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
-                        <!-- Search -->
-                        <div class="relative w-full lg:max-w-md">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <span class="material-symbols-outlined text-slate-400">search</span>
-                            </div>
-                            <input class="block w-full pl-10 pr-3 py-2.5 border-none rounded-lg bg-background-light dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary sm:text-sm" placeholder="Search by title, author, or ID..." type="text" />
-                        </div>
-                        <!-- Filters -->
-                        <div class="flex items-center gap-2 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 no-scrollbar">
-                            <button class="whitespace-nowrap flex items-center gap-2 px-3 py-2 rounded-lg bg-background-light dark:bg-slate-800 border border-transparent hover:border-slate-300 dark:hover:border-slate-600 transition-all text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Status: All
-                                <span class="material-symbols-outlined text-lg">expand_more</span>
-                            </button>
-                            <button class="whitespace-nowrap flex items-center gap-2 px-3 py-2 rounded-lg bg-background-light dark:bg-slate-800 border border-transparent hover:border-slate-300 dark:hover:border-slate-600 transition-all text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Category: All
-                                <span class="material-symbols-outlined text-lg">expand_more</span>
-                            </button>
-                            <button class="whitespace-nowrap flex items-center gap-2 px-3 py-2 rounded-lg bg-background-light dark:bg-slate-800 border border-transparent hover:border-slate-300 dark:hover:border-slate-600 transition-all text-sm font-medium text-slate-700 dark:text-slate-300">
-                                Date: Last 30 Days
-                                <span class="material-symbols-outlined text-lg">expand_more</span>
-                            </button>
-                            <button class="whitespace-nowrap flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 hover:text-primary transition-colors text-sm font-medium">
-                                <span class="material-symbols-outlined text-lg">filter_list</span>
-                                More Filters
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                
                 <!-- Articles Table -->
                 <div class="bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-xl overflow-hidden shadow-sm flex flex-col">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-border-light dark:border-border-dark text-xs uppercase text-slate-500 dark:text-slate-400 font-semibold tracking-wider">
-                                    <th class="p-4 w-12">
-                                        <input class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4 bg-transparent" type="checkbox" />
-                                    </th>
+                                    
                                     <th class="p-4 min-w-[300px]">Article Details</th>
                                     <th class="p-4">Author</th>
                                     <th class="p-4">Theme</th>
@@ -194,17 +159,14 @@ $articles = Article::getAllArticles();
                             <?php if (isset($articles) && !empty($articles)): ?>
                                 <tbody class="divide-y divide-border-light dark:divide-border-dark text-sm">
                                     <?php foreach ($articles as $article): ?>
-                                        <!-- Row 1 -->
                                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
 
                                             <td class="p-4">
                                                 <div class="flex gap-4">
-                                                    <div class="h-16 w-24 shrink-0 overflow-hidden rounded-lg bg-slate-200">
-                                                        <img class="h-full w-full object-cover" data-alt="Scenic road trip view through a desert landscape" src="<?= $article->image ?> ?>" />
-                                                    </div>
+                                                   
                                                     <div class="flex flex-col gap-1">
-                                                        <p class="font-bold text-slate-900 dark:text-white line-clamp-1 group-hover:text-primary transition-colors"><?= $article->titre ?></p>
-                                                        <p class="text-slate-500 line-clamp-2 text-xs"><?= $article->texte ?></p>
+                                                        <p class="font-bold text-slate-900 dark:text-white line-clamp-2  max-w-[150px] group-hover:text-primary transition-colors"><?= $article->titre ?></p>
+                                                        <p class="text-slate-500 line-clamp-2 max-w-[250px] text-xs"><?= $article->texte ?></p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -215,7 +177,7 @@ $articles = Article::getAllArticles();
                                             </td>
                                             <td class="p-4 align-top pt-5">
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-                                                    Travel Tips
+                                                    <?= $article->theme ?>
                                                 </span>
                                             </td>
                                             <td class="p-4 align-top pt-5 text-slate-500"><?= date('m, d Y', strtotime($article->created_at)) ?></td>
@@ -228,11 +190,11 @@ $articles = Article::getAllArticles();
                                             <td class="p-4 align-top pt-4 text-right">
                                                 <div class="flex items-center justify-end gap-1">
                                                     <a href="./../../../Controllers/ArticleController.php?action=accept&id=<?= $article->id_article ?>" class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Edit">
-                                                        <span class="material-symbols-outlined text-xl">accept</span>
+                                                        <span class="material-symbols-outlined text-xl">check</span>
                                                     </a>
 
                                                     <a href="./../../../Controllers/ArticleController.php?action=reject&id=<?= $article->id_article ?>" class="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
-                                                        <span class="material-symbols-outlined text-xl">refuse</span>
+                                                        <span class="material-symbols-outlined text-xl">close</span>
                                                     </a>
                                                 </div>
                                             </td>
@@ -256,25 +218,7 @@ $articles = Article::getAllArticles();
                             <?php endif; ?>
                         </table>
                     </div>
-                    <!-- Pagination -->
-                    <div class="bg-surface-light dark:bg-surface-dark px-6 py-4 border-t border-border-light dark:border-border-dark flex items-center justify-between">
-                        <p class="text-sm text-slate-500 dark:text-slate-400 hidden sm:block">
-                            Showing <span class="font-medium text-slate-900 dark:text-white">1</span> to <span class="font-medium text-slate-900 dark:text-white">10</span> of <span class="font-medium text-slate-900 dark:text-white">145</span> results
-                        </p>
-                        <div class="flex items-center gap-1 w-full sm:w-auto justify-center">
-                            <button class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed">
-                                <span class="material-symbols-outlined text-xl">chevron_left</span>
-                            </button>
-                            <button class="h-9 w-9 flex items-center justify-center rounded-lg bg-primary text-white text-sm font-bold shadow-sm shadow-blue-500/20">1</button>
-                            <button class="h-9 w-9 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium transition-colors">2</button>
-                            <button class="h-9 w-9 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium transition-colors">3</button>
-                            <span class="px-2 text-slate-400">...</span>
-                            <button class="h-9 w-9 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-medium transition-colors">15</button>
-                            <button class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700">
-                                <span class="material-symbols-outlined text-xl">chevron_right</span>
-                            </button>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </main>
