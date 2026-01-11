@@ -120,7 +120,8 @@ class Article
         $sql = 'SELECT a.*, t.titre AS theme, u.nom AS author
                 FROM article a
                 LEFT JOIN theme t ON a.id_theme = t.id_theme
-                LEFT JOIN utilisateur u ON a.id_client = u.id_user';
+                LEFT JOIN utilisateur u ON a.id_client = u.id_user
+                WHERE a.status = \'PENDING\'';
         $st = $pdo->prepare($sql);
         return $st->execute() ? $st->fetchAll(PDO::FETCH_OBJ) : null;
     }
