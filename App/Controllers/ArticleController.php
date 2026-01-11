@@ -31,8 +31,15 @@ switch ($action) {
                     ArticleTags::addArticleTags($article, $tags);
                 }
 
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            header('Location: ./views/client/blog/theme.php');
             exit();
         }
         break;
+    case 'accept':
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $idart = $_GET['id'];
+            Article::approveArticle($idart);
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit();
+        }
 }
