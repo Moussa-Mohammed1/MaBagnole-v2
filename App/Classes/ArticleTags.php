@@ -19,10 +19,25 @@ class ArticleTags
         $st = $pdo->prepare($sql);
         $st->execute([$article->id_article, $tag->id_tag]);
     }
-    public static function addArticleTags(Article $article, array $tags)
+    public static function addArticleTags(Article $article, array $tagIds)
     {
-        foreach ($tags as $tag) {
-            self::insert($article, $tag);
+        foreach ($tagIds as $tagId) {
+            $tag = Tag::getTagById((int)$tagId);
+            if ($tag) {
+                self::insert($article, $tag);
+            }
         }
+    }
+
+    public static function getArticleTags(int $id_article): ?array
+    {
+        $pdo = Database::getInstance()->getConnection();
+        $sql = "SELECT t.titre, t.id_tag FROM tag t 
+                INNER JOIN article_tag art ON t.id_tag = art.id_tag 
+                WHERE at.id_article = ?";
+        $tagStmt = $pdo->prepare($sql);
+        $tagStmt->execute([$id_article]);
+        $tags = $tagStmt->fetchAll(PDO::FETCH_OBJ);
+        return $tags;
     }
 }
