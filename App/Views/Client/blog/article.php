@@ -3,6 +3,7 @@
 use App\Classes\Article;
 use App\Classes\Comment;
 use App\Classes\ArticleTags;
+use App\Classes\Favoris;
 
 session_start();
 require_once __DIR__ . '/../../../../vendor/autoload.php';
@@ -28,6 +29,8 @@ $comments = Comment::getCommentByArticle($id_article);
 $commentCount = $comments ? count($comments) : 0;
 
 $tags = ArticleTags::getArticleTags($id_article);
+
+$isFavorite = Favoris::isFavorite($id_article, $logged->id_user);
 ?>
 <!DOCTYPE html>
 
@@ -166,6 +169,13 @@ $tags = ArticleTags::getArticleTags($id_article);
                         <a class="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300" href="#comments">
                             <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
                             <span class="text-sm font-medium"><?= $commentCount ?></span>
+                        </a>
+                        <a href="../../../Controllers/favorisController.php?action=toggle&id_article=<?= $id_article ?>&id_client=<?= $logged->id_user ?>" 
+                           class="flex items-center gap-2 px-4 py-2 rounded-full <?= $isFavorite ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300' ?> hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors" 
+                           title="<?= $isFavorite ? 'Remove from favorites' : 'Add to favorites' ?>">
+                            <span class="material-symbols-outlined text-[20px] <?= $isFavorite ? 'fill-icon' : '' ?>" style="<?= $isFavorite ? 'font-variation-settings: \'FILL\' 1;' : '' ?>">
+                                favorite
+                            </span>
                         </a>
                     </div>
                 </div>
